@@ -1,0 +1,1 @@
+# STIG-Hardening-Lab
