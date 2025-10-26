@@ -1,0 +1,35 @@
+PLAY [Windows Server 2022 STIG remediations (subset)] **************************
+
+TASK [Remove SMBv1 server feature] *********************************************
+ok: [192.168.86.131]
+
+TASK [Disable SMBv1 client (registry)] *****************************************
+changed: [192.168.86.131]
+
+TASK [Minimum password length 14] **********************************************
+changed: [192.168.86.131]
+
+TASK [Enforce password complexity] *********************************************
+ok: [192.168.86.131]
+
+TASK [Password history 24] *****************************************************
+ok: [192.168.86.131]
+
+TASK [Maximum password age 60 days] ********************************************
+changed: [192.168.86.131]
+
+TASK [Enable FIPS algorithm policy] ********************************************
+changed: [192.168.86.131]
+
+TASK [Disable TLS 1.0 (server)] ************************************************
+changed: [192.168.86.131]
+
+TASK [Ensure TLS 1.2 (server) enabled] *****************************************
+changed: [192.168.86.131]
+
+TASK [Ensure Windows Defender service is running] ******************************
+An exception occurred during task execution. To see the full traceback, use -vvv. The error was:    at Microsoft.PowerShell.Commands.NewObjectCommand.CallConstructor(T>
+fatal: [192.168.86.131]: FAILED! => {"changed": false, "msg": "Unhandled exception while executing module: Exception calling \".ctor\" with \"2\" argument(s): \"Failed>
+
+PLAY RECAP *********************************************************************
+192.168.86.131             : ok=9    changed=6    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0

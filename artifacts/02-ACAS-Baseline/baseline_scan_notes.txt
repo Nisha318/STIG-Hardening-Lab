@@ -1,0 +1,26 @@
+Baseline ACAS Scan Summary
+--------------------------
+Scan Date: 2025-10-26
+Target: Windows Server 2022
+Scan Tool: Tenable Nessus (Community)
+
+Findings:
+- SMBv1 enabled
+- TLS 1.0 still supported
+- Missing Windows Defender updates
+- Weak password policy (STIG V-254445)
+- Unpatched RDP bulletin
+- Multiple TLS/SSL configuration findings
+
+Evidence:
+- finding_smb_baseline.png
+- finding_rdp_baseline.png
+- finding_passwordpolicy_baseline.png
+- top_findings_baseline_1.png … 3.png
+- host_details_baseline.png
+- scan_summary_baseline.png
+
+Next Steps:
+- Apply remediations through Ansible playbook.
+- Re-run ACAS scan after hardening.
+- Move residual issues to POA&M.

@@ -1,0 +1,62 @@
+---
+- name: Windows Server 2022 STIG Hardening Playbook
+  hosts: windows_servers
+  gather_facts: no
+  vars:
+    ansible_connection: winrm
+    ansible_winrm_transport: credssp
+    ansible_winrm_server_cert_validation: ignore
+
+  tasks:
+
+    #################################################################
+    # SMBv1 Remediation (V-254276, V-254277)
+    #################################################################
+    - name: Disable SMBv1 Server Feature
+      ansible.windows.win_optional_feature:
+        name: SMB1Protocol
+        state: absent
+
+    - name: Disable SMBv1 Client via Registry
+      ansible.windows.win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters
+        name: SMB1
+        data: 0
+        type: dword
+
+    #################################################################
+    # Password Policy Enforcement (V-254440, V-254445)
+    #################################################################
+    - name: Set Minimum Password Length to 14
+      ansible.windows.win_security_policy:
+        policy: MinimumPasswordLength
+        value: 14
+
+    - name: Enforce Password Complexity
+      ansible.windows.win_security_policy:
+        policy: PasswordComplexity
+        value: 1
+
+    - name: Enforce Password History to 24
+      ansible.windows.win_security_policy:
+        policy: PasswordHistorySize
+        value: 24
+
+    #################################################################
+    # Windows Defender Enablement (V-254453)
+    #################################################################
+    - name: Ensure Windows Defender Service is Running
+      ansible.windows.win_service:
+        name: WinDefend
+        start_mode: auto
+        state: started
+
+    - name: Enable Real-time Protection
+      ansible.windows.win_command: "powershell.exe Set-MpPreference -DisableRealtimeMonitoring $false"
+
+    - name: Update Windows Defender Signatures
+      ansible.windows.win_command: "powershell.exe Update-MpSignature"
+
+    #################################################################
+    # FIPS Mode and TLS Cipher Hardening (V-254507)
+    #########################################
