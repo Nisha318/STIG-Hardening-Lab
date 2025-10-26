@@ -17,7 +17,6 @@ This lab demonstrates how to harden a Windows Server 2022 host using DISA STIGs 
 - Ansible (control node for automation)
 
 ✅ **Mapped Controls:** AC-2, AC-3, CM-7, SI-2, SC-7  
-📝 **Deliverables:** Baseline and post-hardening Nessus reports, STIG checklist (.ckl), POA&M documentation, screenshots, markdown summary, and optional blog post.
 
 ```mermaid
 flowchart TD
